@@ -50,9 +50,15 @@ jobs:
                 echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
             fi
       - name: List changed files
+        id: list-files
         run: |
+            file_array=()
             for file in ${{ steps.changed-files.outputs.changed_files }}; do
                 echo "$file was changed"
-                var[${#var}]="$file";
+                file_array+=("$( cut -d '/' -f 1 <<< "${myArray[$i]}" )")
             done
-            echo "$var"
+            echo "${index_array[@]}"
+            echo "deploymentList=${index_array[@]}\n" >> $GITHUB_OUTPUT
+      - name: Temp
+        run: |
+            echo ${{ steps.list-files.outputs.deploymentList }}  
