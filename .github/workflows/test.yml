@@ -58,7 +58,8 @@ jobs:
                 file_array+=("$( cut -d '/' -f 1 <<< "${myArray[$i]}" )")
             done
             echo "${index_array[@]}"
-            echo "deploymentList=${index_array[@]}\n" >> $GITHUB_OUTPUT
+            echo "${file_array[@]}"
+            echo "deploymentList=${file_array}" >> $GITHUB_OUTPUT
       - name: Temp
         run: |
             echo ${{ steps.list-files.outputs.deploymentList }}  
