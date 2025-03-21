@@ -74,4 +74,4 @@ jobs:
       #   "output_2": "2",
       #   "output_3": "3"
       # }
-      - run: echo '${{ toJSON(needs.test.outputs.output_1[@]) }}'
+      - run: echo '${{ toJSON(needs.test.outputs.output_1) }}'
