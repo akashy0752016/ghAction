@@ -55,7 +55,7 @@ jobs:
             file_array=()
             for file in ${{ steps.changed-files.outputs.changed_files }}; do
                 echo "$file was changed"
-                file_array+=("$( cut -d '/' -f 1 <<< "${myArray[$i]}" )")
+                file_array+=("$( cut -d '/' -f 1 <<< "${file}" )")
             done
             echo "${index_array[@]}"
             echo "${file_array[@]}"
