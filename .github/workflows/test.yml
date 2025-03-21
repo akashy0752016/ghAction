@@ -55,4 +55,4 @@ jobs:
                 echo "$file was changed"
                 var[${#var}]="$file";
             done
-            echo var
+            echo "$var"
