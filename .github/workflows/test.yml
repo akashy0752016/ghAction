@@ -72,4 +72,4 @@ jobs:
       #   "output_2": "2",
       #   "output_3": "3"
       # }
-      - run: echo '${{needs.test.outputs }}'
+      - run: echo '${{ toJSON(needs.test.outputs) }}'
