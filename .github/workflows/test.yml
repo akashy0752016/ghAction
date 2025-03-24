@@ -34,29 +34,10 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-  detect-changes:
-    runs-on: ubuntu-latest
-    outputs:
-      modified-folders: ${{ steps.detect.outputs.modified_folders }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
-      - name: Detect changed folders
-        id: detect
-        run: |
-          if ${{ github.event_name == 'pull_request' }}; then
-              echo "modified_folders=$(git diff --name-only -r HEAD^1 HEAD | xargs)" >> $GITHUB_OUTPUT
-          else
-              echo "modified_folders=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
-          fi
-          echo "Modified folders: $modified_folders"
-          echo "::set-output name=modified_folders::$(echo $modified_folders | tr '\n' ' ')"
   test:
     runs-on: ubuntu-latest
     outputs:
-      output_1: ${{ steps.list-files.outputs.deploymentList }}
+      modified_folders: ${{ steps.detect.outputs.modified_folders }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -79,10 +60,10 @@ jobs:
                 file_array+=("$( cut -d '/' -f 1 <<< "${file}" )")
             done
             echo "${file_array[@]}"
-            echo "deploymentList=${file_array}" >> $GITHUB_OUTPUT
+            echo "modified_folders=$(echo $file_array | tr '\n' ' ')" >> $GITHUB_OUTPUT
       - name: Temp
         run: |
-            echo ${{ steps.list-files.outputs.deploymentList }}  
+            echo ${{ steps.list-files.outputs.modified_folders }}  
   job2:
     runs-on: ubuntu-latest
     needs: [test]
