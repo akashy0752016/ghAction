@@ -45,8 +45,12 @@ jobs:
       - name: Detect changed folders
         id: detect
         run: |
-          # Get the list of modified folders in the commit
-          modified_folders=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs | sort -u)
+          # Get the list of modified files in the last commit
+          modified_files=$(git diff --name-only HEAD~1 HEAD)
+
+          # Extract folders from the modified file paths (ignoring files)
+          modified_folders=$(echo "$modified_files" | grep '/.*' | cut -d '/' -f1 | sort -u)
+
           echo "Modified folders: $modified_folders"
           echo "::set-output name=modified_folders::$(echo $modified_folders | tr '\n' ' ')"
   test:
