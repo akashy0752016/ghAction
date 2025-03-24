@@ -48,10 +48,13 @@ jobs:
         run: |
             if ${{ github.event_name == 'pull_request' }}; then
                 echo "changed_files=$(git diff --name-only -r HEAD^1 HEAD | xargs)" >> $GITHUB_OUTPUT
+                modified_files=$(git diff --name-only -r HEAD^1 HEAD | xargs)
             else
                 echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
+                modified_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)
             fi
-            temp_folders=$(echo "$changed_files" | grep '/.*' | cut -d '/' -f1 | sort -u)
+            modified_folders=$(echo "$modified_files" | grep '/.*' | cut -d '/' -f1 | sort -u)
+            echo "Modified folders: $modified_folders"
             echo "${temp_folders}"
       - name: List changed files
         id: list-files
