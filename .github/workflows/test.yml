@@ -47,11 +47,12 @@ jobs:
         run: |
           # Get the list of modified files in the last commit
           if ${{ github.event_name == 'pull_request' }}; then
-              echo "modified_files=$(git diff --name-only -r HEAD^1 HEAD | xargs)" >> $GITHUB_OUTPUT
+              modified_files=$(git diff --name-only -r HEAD^1 HEAD | xargs)
           else
-              echo "modified_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
+              modified_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)
           fi
-
+          # Extract folders from the modified file paths (ignoring files)
+          modified_folders=$(echo "$modified_files" | grep '/.*' | cut -d '/' -f1 | sort -u)
           # Extract folders from the modified file paths (ignoring files)
           modified_folders=$(echo "$modified_files" | grep '/.*' | cut -d '/' -f1 | sort -u)
 
