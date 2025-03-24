@@ -60,7 +60,7 @@ jobs:
                 file_array+=("$( cut -d '/' -f 1 <<< "${file}" )")
             done
             echo "${file_array[@]}"
-            modified_folders=$(echo "$steps.changed-files.outputs.changed_files" | grep '/.*' | cut -d '/' -f1 | sort -u)
+            modified_folders=$(echo "$file_array" | grep '/.*' | cut -d '/' -f1 | sort -u)
             echo "modified_folders=$(echo $modified_folders | tr '\n' ' ')" >> $GITHUB_OUTPUT
       - name: Temp
         run: |
