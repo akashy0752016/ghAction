@@ -40,7 +40,7 @@ jobs:
       modified-folders: ${{ steps.detect.outputs.modified_folders }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Detect changed folders
         id: detect
