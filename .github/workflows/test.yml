@@ -34,6 +34,21 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      modified-folders: ${{ steps.detect.outputs.modified_folders }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Detect changed folders
+        id: detect
+        run: |
+          # Get the list of modified folders in the commit
+          modified_folders=$(git diff --name-only HEAD~1 HEAD | grep '/.*' | cut -d '/' -f1 | sort -u)
+          echo "Modified folders: $modified_folders"
+          echo "::set-output name=modified_folders::$(echo $modified_folders | tr '\n' ' ')"
   test:
     runs-on: ubuntu-latest
     outputs:
