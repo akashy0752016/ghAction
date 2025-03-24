@@ -37,7 +37,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     outputs:
-      modified_folders: ${{ steps.detect.outputs.modified_folders }}
+      modified_folders: ${{ steps.changed-files.outputs.modified_folders }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,6 +56,8 @@ jobs:
             modified_folders=$(echo "$modified_files" | grep '/.*' | cut -d '/' -f1 | sort -u)
             echo "Modified folders: $modified_folders"
             echo "${temp_folders}"
+            echo "::set-output name=modified_folders::$(echo $modified_folders | tr '\n' ' ')"
+            echo "modified_folders=$(echo $modified_folders | tr '\n' ' ')" >> $GITHUB_OUTPUT
       - name: List changed files
         id: list-files
         run: |
