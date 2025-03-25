@@ -93,5 +93,5 @@ jobs:
             fi
             modified_folders=$(echo "$modified_files" | grep '/.*' | cut -d '/' -f1 | sort -u)
 
-            python .github/workflows/test.py modified_files
+            python .github/workflows/test.py ${modified_files}
         
