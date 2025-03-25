@@ -94,5 +94,5 @@ jobs:
           python-version: '3.8'
       - name: Run Python scripts
         run: |
-          python test.py ${modified_folders}
+          python .github/workflows/test.py ${modified_folders}
         
