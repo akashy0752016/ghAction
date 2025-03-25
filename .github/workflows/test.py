@@ -1,7 +1,11 @@
 import sys
+from pathlib import path
+
+def get_root_folder(path):
+  return Path(path).anchor
 
 def process(args):
-  result = [f"Argument {i}: {arg}" for i, arg in enumerate(args)]
+  result = [get_root_folder(arg) for i, arg in enumerate(args)]
   return result
 
 if __name__ == "__main__":
