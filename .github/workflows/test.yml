@@ -77,6 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.changed-files.outputs.modified_folders }}
+      json_result: ${{ steps.changed-files.outputs.json_result }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -99,15 +100,17 @@ jobs:
             matrix=[$(echo "$result" | tr '\n' ',' | sed 's/,$//')]
             echo "matrix: $matrix"
             echo "modified_folders=[$matrix]" >> $GITHUB_OUTPUT
+            json_result=$(echo "$result" | jq -R -s -c 'split("\n")[:-1]')
+            echo "json_result=$json_result" >> $GITHUB_OUTPUT
       - name: Temp
         run: |
-            echo ${{ steps.changed-files.outputs.modified_folders }}  
+            echo ${{ steps.changed-files.outputs.json_result }}  
   matrix-job:
     needs: job2
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        item: ${{ fromJson(needs.job2.outputs.matrix) }}
+        item: ${{ fromJson(needs.job2.outputs.json_result) }}
     
     steps:
       - name: Checkout code
