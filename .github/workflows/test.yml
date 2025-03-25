@@ -101,6 +101,7 @@ jobs:
             echo "matrix: $matrix"
             echo "modified_folders=[$matrix]" >> $GITHUB_OUTPUT
             json_result=$(echo "$result" | jq -R -s -c 'split("\n")[:-1]')
+            echo "json_result: $json_result"
             echo "json_result=$json_result" >> $GITHUB_OUTPUT
       - name: Temp
         run: |
@@ -114,7 +115,7 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Process matrix item
         run: |
