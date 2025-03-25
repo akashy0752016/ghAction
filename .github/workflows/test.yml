@@ -91,6 +91,5 @@ jobs:
             else
                 modified_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)
             fi
-            
-            result = $(python .github/workflows/test.py $modified_files)
+            result=$(python .github/workflows/test.py $modified_files)
             echo "Result: $result"
