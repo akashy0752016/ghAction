@@ -76,7 +76,7 @@ jobs:
   job2:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.changed-files.outputs.matrix }}
+      matrix: ${{ steps.changed-files.outputs.modified_folders }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -99,3 +99,20 @@ jobs:
             matrix=$(echo "$result" | tr '\n' ',' | sed 's/,$//')
             echo "matrix: $matrix"
             echo "modified_folders=[$matrix]" >> $GITHUB_OUTPUT
+      - name: Temp
+        run: |
+            echo ${{ steps.changed-files.outputs.modified_folders }}  
+  matrix-job:
+    needs: job2
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        item: ${{ fromJson(needs.job2.outputs.matrix) }}
+    
+    steps:
+      - name: Checkout code
+        uses: action/checkout@v4
+
+      - name: Process matrix item
+        run: |
+          echo "Processing item: ${{matrix.item}}"
