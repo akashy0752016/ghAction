@@ -12,6 +12,6 @@ if __name__ == "__main__":
   arguments = sys.argv[1:]
   result = process(arguments)
 
-  for item in result:
+  for item in set(result):
     print(item)
   
