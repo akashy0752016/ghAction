@@ -93,3 +93,5 @@ jobs:
             fi
             result=$(python .github/workflows/test.py $modified_files)
             echo "Result: $result"
+            matrix=$(echo "$result" | tr '\n' ',' | sed 's/,$//')
+            echo "matrix: $matrix"
