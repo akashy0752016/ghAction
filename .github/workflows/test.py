@@ -1,8 +1,8 @@
 import sys
-from pathlib import path
+from os
 
 def get_root_folder(path):
-  return Path(path).anchor
+  return os.path.abspath(path).split(os.sep)[0]
 
 def process(args):
   result = [get_root_folder(arg) for i, arg in enumerate(args)]
