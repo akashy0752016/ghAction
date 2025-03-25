@@ -96,7 +96,7 @@ jobs:
             fi
             result=$(python .github/workflows/test.py $modified_files)
             echo "Result: $result"
-            matrix=$(echo "$result" | tr '\n' ',' | sed 's/,$//')
+            matrix=[$(echo "$result" | tr '\n' ',' | sed 's/,$//')]
             echo "matrix: $matrix"
             echo "modified_folders=[$matrix]" >> $GITHUB_OUTPUT
       - name: Temp
