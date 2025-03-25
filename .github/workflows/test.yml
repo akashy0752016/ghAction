@@ -89,7 +89,7 @@ jobs:
             fi
             modified_folders=$(echo "$modified_files" | grep '/.*' | cut -d '/' -f1 | sort -u)
       - name: Set up Python
-        uses: action/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: '3.8'
       - name: Run Python scripts
