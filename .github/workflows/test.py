@@ -1,5 +1,5 @@
 import sys
-from os
+import os
 
 def get_root_folder(path):
   return os.path.abspath(path).split(os.sep)[0]
