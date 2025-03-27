@@ -1,5 +1,6 @@
 import sys
 import os
+import fire
 
 def get_root_folder(path):
   return os.path.dirname(path).split(os.sep)[0]
