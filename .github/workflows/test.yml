@@ -65,8 +65,6 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
     - name: Process matrix item
       run: |
           echo "Processing item: ${{matrix.item}}, ${{matrix.env}}"
