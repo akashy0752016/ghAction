@@ -54,8 +54,8 @@ jobs:
           - env: 'dev'
           - env: 'stage'
           - env: 'prod'
-        item: ${{ fromJson(needs.get-changed-files.outputs.modified_folders) }}
-    name: ${{matrix.item}} deploy - ${{ matrix.env }}
+
+    name:  deploy - ${{ matrix.env }}
     environment: ${{ matrix.env }}
 
     steps:
@@ -67,5 +67,5 @@ jobs:
 
     - name: Process matrix item
       run: |
-          echo "Processing item: ${{matrix.item}}, ${{matrix.env}}"
+          echo "Processing item:, ${{matrix.env}}"
   
