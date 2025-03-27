@@ -41,6 +41,7 @@ jobs:
                 modified_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)
             fi
             result=$(python .github/workflows/test.py $modified_files)
+            echo "$(python .github/workflows/test.py --modified-files=$modified_files)"
             echo "json_result: $result"
             echo "json_result=$result" >> $GITHUB_OUTPUT
       - name: Temp
