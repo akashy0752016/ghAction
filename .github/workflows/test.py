@@ -8,8 +8,8 @@ def process(*args):
 #  print(args)
   result = [get_root_folder(arg) for arg in args]
   result = list(set(result) - set(['.github']))
-#  print(result)
-  return result
+  print(result)
+#  return result
 
 if __name__ == "__main__":
   fire.Fire(process)
