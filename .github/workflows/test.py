@@ -5,12 +5,10 @@ import fire
 def get_root_folder(path):
   return os.path.dirname(path).split(os.sep)[0]
 
-def process(args):
-  result = [get_root_folder(arg) for i, arg in enumerate(args)]
+def process(modified-files):
+  result = [get_root_folder(arg) for i, arg in enumerate(modified-files)]
   return result
 
 if __name__ == "__main__":
-  arguments = sys.argv[1:]
-  result = process(arguments)
-  print(list(set(result)))
+  fire.Fire(process)
   
