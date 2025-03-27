@@ -52,12 +52,10 @@ jobs:
       matrix:
         include:
           - env: 'dev'
-            item: ${{ fromJson(needs.get-changed-files.outputs.modified_folders) }}
           - env: 'stage'
-            item: ${{ fromJson(needs.get-changed-files.outputs.modified_folders) }}
           - env: 'prod'
-            item: ${{ fromJson(needs.get-changed-files.outputs.modified_folders) }}
-        
+        item: ${{ fromJson(needs.get-changed-files.outputs.modified_folders) }}
+        env: ['dev', 'stage', 'prod']
     name: ${{matrix.item}} deploy - ${{ matrix.env }}
     environment: ${{ matrix.env }}
 
