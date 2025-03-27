@@ -50,13 +50,17 @@ jobs:
     strategy:
       max-parallel: 1 # To ensure a single job is executed at a time, chained and dependent
       matrix:
-        include:
-          - env: 'dev'
-          - env: 'stage'
-          - env: 'prod'
         item: ${{ fromJson(needs.get-changed-files.outputs.modified_folders) }}
         env: ['dev', 'stage', 'prod']
-    name: ${{matrix.item}} deploy - ${{ matrix.env }}
+        include:
+          - env: 'dev'
+            aws-key: 'dev'
+          - env: 'stage'
+            aws-key: 'stage'
+          - env: 'prod'
+            aws-key: 'prod'
+        
+    name: ${{matrix.item}} deploy - ${{ matrix.env }} - ${{ matrix.aws-key }}
     environment: ${{ matrix.env }}
 
     steps:
@@ -68,5 +72,5 @@ jobs:
 
     - name: Process matrix item
       run: |
-          echo "Processing item: ${{matrix.item}}, ${{matrix.env}}"
+          echo "Processing item: ${{matrix.item}}, ${{matrix.env}}  - ${{ matrix.aws-key }}"
   
