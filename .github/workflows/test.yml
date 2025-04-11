@@ -40,7 +40,7 @@ jobs:
             else
                 modified_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)
             fi
-            result=$(python .github/workflows/gh_util_functions.py get_root_folder $modified_files)
+            result=$(python .github/workflows/gh_util_functions.py get_root_folder .github/test1 test1/test2/test3 test2/test2/t.txt)
             echo "json_result: $result"
             echo "json_result=$result" >> $GITHUB_OUTPUT
   data-ingress-svc-image-deploy:
@@ -52,6 +52,8 @@ jobs:
       matrix:
         item: ${{ fromJson(needs.get-changed-files.outputs.modified_folders) }}
         env: ['dev', 'stage', 'prod']
+        exclude:
+          - item: 'test1'
         include:
           - env: 'dev'
             aws-key: 'dev'
