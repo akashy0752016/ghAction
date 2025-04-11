@@ -54,6 +54,7 @@ jobs:
         env: ['dev', 'stage', 'prod']
         exclude:
           - item: 'test1'
+          - item: 'test2'
         include:
           - env: 'dev'
             aws-key: 'dev'
