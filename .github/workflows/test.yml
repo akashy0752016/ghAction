@@ -55,6 +55,7 @@ jobs:
         exclude:
           - item: 'test1'
           - item: 'test2'
+          - item: '.github'
         include:
           - env: 'dev'
             aws-key: 'dev'
