@@ -50,11 +50,9 @@ jobs:
     strategy:
       max-parallel: 1 # To ensure a single job is executed at a time, chained and dependent
       matrix:
-        item: ${{ fromJson(needs.get-changed-files.outputs.modified_folders) }}
         env: ['dev', 'stage', 'prod']
+        item: ${{ fromJson(needs.get-changed-files.outputs.modified_folders) }}
         exclude:
-          - item: 'test1'
-          - item: 'test2'
           - item: '.github'
         include:
           - env: 'dev'
