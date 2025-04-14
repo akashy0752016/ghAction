@@ -67,13 +67,15 @@ jobs:
 
     steps:
     - name: Checkout Repository
+      if: ${{ matrix.item != '' && matrix.item != null }}
       uses: actions/checkout@v4
 
     - name: Set up Docker Buildx
-      if: ${{ matrix.item != '' && matrix.item != ' ' }}
+      if: ${{ matrix.item != '' && matrix.item != null }}
       uses: docker/setup-buildx-action@v2
 
     - name: Process matrix item
+      if: ${{ matrix.item != '' && matrix.item != null }}
       run: |
           echo "Processing item: ${{matrix.item}}, ${{matrix.env}}  - ${{ matrix.aws-key }}"
   
